@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <string.h>
 
 /**
  * get_min_max - Finds the minimum and maximum values in an array.
@@ -33,8 +34,8 @@ void get_min_max(int *array, size_t size, int *min, int *max)
  */
 void counting_sort(int *array, size_t size)
 {
-	int min, max, *output, *count;
-	size_t i, j, idx;
+	int min, max, *count;
+	size_t i, j;
 
 	if (size < 2)
 		return;
@@ -45,36 +46,20 @@ void counting_sort(int *array, size_t size)
 	if (count == NULL)
 		return;
 
-	for (i = 0; i <= (size_t)(max - min); i++)
-		count[i] = 0;
+	/* Initialize count array to zeros */
+	memset(count, 0, (max - min + 1) * sizeof(int));
 
 	for (i = 0; i < size; i++)
 		count[array[i] - min]++;
-
-	output = malloc(size * sizeof(int));
-	if (output == NULL)
-	{
-		free(count);
-		return;
-	}
 
 	j = 0;
 	for (i = 0; i <= (size_t)(max - min); i++)
 		while (count[i] > 0)
 		{
-			output[j] = i + min;
+			array[j] = i + min;
 			j++;
 			count[i]--;
 		}
 
-	for (i = 0; i < size; i++)
-		array[i] = output[i];
-
-	printf("%d", count[0]);
-	for (idx = 1; idx <= (size_t)(max - min); idx++)
-		printf(", %d", count[idx]);
-	printf("\n");
-
 	free(count);
-	free(output);
 }
