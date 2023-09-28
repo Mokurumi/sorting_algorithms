@@ -45,8 +45,8 @@ int getMax(int *array, size_t size);
 void countingSort(int *array, size_t size, int exp);
 
 void bitonic_sort(int *array, size_t size);
-void bitonic_merge(int *array, size_t start, size_t size, int dir);
-void bitonic_sort_recursive(int *array, size_t start, size_t size, int dir);
+void bitonic_merge(int *array, size_t start, size_t size, int dir, size_t og_size);
+void bitonic_sort_recursive(int *array, size_t start, size_t size, int dir, size_t og_size);
 
 void quick_sort_hoare(int *array, size_t size);
 void quicksort_hoare(int *array, int low, int high, size_t size);

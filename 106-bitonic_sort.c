@@ -8,8 +8,9 @@
  * @start: Starting index of the sub-array
  * @size: Size of the sub-array to be merged
  * @dir: Direction of sorting (1 for increasing, 0 for decreasing)
+ * @og_size: The original size of the array
  */
-void bitonic_merge(int *array, size_t start, size_t size, int dir)
+void bitonic_merge(int *array, size_t start, size_t size, int dir, size_t og_size)
 {
 	size_t half = size / 2;
 	size_t i, temp;
@@ -17,7 +18,7 @@ void bitonic_merge(int *array, size_t start, size_t size, int dir)
 	if (size > 1)
 	{
 		printf("Merging [%lu/%lu] (%s):\n",
-				size, size, (dir == 1) ? "UP" : "DOWN");
+				size, og_size, (dir == 1) ? "UP" : "DOWN");
 		print_array(array + start, size);
 
 		for (i = start; i < start + half; i++)
@@ -31,8 +32,8 @@ void bitonic_merge(int *array, size_t start, size_t size, int dir)
 			}
 		}
 
-		bitonic_merge(array, start, half, dir);
-		bitonic_merge(array, start + half, half, dir);
+		bitonic_merge(array, start, half, dir, og_size);
+		bitonic_merge(array, start + half, half, dir, og_size);
 	}
 }
 
@@ -42,21 +43,23 @@ void bitonic_merge(int *array, size_t start, size_t size, int dir)
  * @start: Starting index of the sub-array
  * @size: Size of the sub-array to be sorted
  * @dir: Direction of sorting (1 for increasing, 0 for decreasing)
+ * @og_size: The original size of the array
  */
-void bitonic_sort_recursive(int *array, size_t start, size_t size, int dir)
+void bitonic_sort_recursive(int *array, size_t start, size_t size,
+		int dir, size_t og_size)
 {
 	size_t half = size / 2;
 
 	if (size > 1)
 	{
 		printf("Merging [%lu/%lu] (%s):\n",
-				size, size, (dir == 1) ? "UP" : "DOWN");
+				size, og_size, (dir == 1) ? "UP" : "DOWN");
 		print_array(array + start, size);
 
-		bitonic_sort_recursive(array, start, half, 1);
-		bitonic_sort_recursive(array, start + half, half, 0);
+		bitonic_sort_recursive(array, start, half, 1, og_size);
+		bitonic_sort_recursive(array, start + half, half, 0, og_size);
 
-		bitonic_merge(array, start, size, dir);
+		bitonic_merge(array, start, size, dir, og_size);
 	}
 }
 
@@ -71,5 +74,5 @@ void bitonic_sort(int *array, size_t size)
 	if (array == NULL || size <= 1)
 		return;
 
-	bitonic_sort_recursive(array, 0, size, 1);
+	bitonic_sort_recursive(array, 0, size, 1, size);
 }
