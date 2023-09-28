@@ -17,12 +17,10 @@ void merge(int *arr, int *left, size_t left_sz, int *right, size_t right_sz)
 
 	if (temp == NULL)
 		return;
-
 	printf("Merging...\n[left]: ");
 	print_array(left, left_sz);
 	printf("[right]: ");
 	print_array(right, right_sz);
-
 	while (i < left_sz && j < right_sz)
 	{
 		if (left[i] <= right[j])
@@ -37,27 +35,22 @@ void merge(int *arr, int *left, size_t left_sz, int *right, size_t right_sz)
 		}
 		k++;
 	}
-
 	while (i < left_sz)
 	{
 		temp[k] = left[i];
 		i++;
 		k++;
 	}
-
 	while (j < right_sz)
 	{
 		temp[k] = right[j];
 		j++;
 		k++;
 	}
-
 	for (i = 0; i < left_sz + right_sz; i++)
 		arr[i] = temp[i];
-
 	printf("[Done]: ");
 	print_array(arr, left_sz + right_sz);
-
 	free(temp);
 }
 
