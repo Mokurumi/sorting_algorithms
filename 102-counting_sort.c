@@ -42,11 +42,11 @@ void counting_sort(int *array, size_t size)
 
 	get_min_max(array, size, &min, &max);
 
-	count = malloc((max - min + 1) * sizeof(int));
+	count = malloc((max - min) * sizeof(int));
 	if (count == NULL)
 		return;
 
-	memset(count, 0, (max - min + 1) * sizeof(int));
+	memset(count, 0, (max - min) * sizeof(int));
 	for (i = 0; i < size; i++)
 		count[array[i] - min]++;
 
