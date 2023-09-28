@@ -46,20 +46,31 @@ void counting_sort(int *array, size_t size)
 	if (count == NULL)
 		return;
 
-	/* Initialize count array to zeros */
 	memset(count, 0, (max - min + 1) * sizeof(int));
-
 	for (i = 0; i < size; i++)
 		count[array[i] - min]++;
 
 	j = 0;
 	for (i = 0; i <= (size_t)(max - min); i++)
+	{
+		printf("%lu", (unsigned long)j);
 		while (count[i] > 0)
 		{
 			array[j] = i + min;
 			j++;
 			count[i]--;
 		}
+
+		if (j < size || count[i] > 1)
+			printf(", ");
+		else
+		{
+			printf(", ");
+			printf("%lu", (unsigned long)j);
+			printf("\n");
+		}
+
+	}
 
 	free(count);
 }
